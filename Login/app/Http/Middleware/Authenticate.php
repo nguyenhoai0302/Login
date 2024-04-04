@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 
 class Authenticate extends Middleware
 {
@@ -43,13 +44,19 @@ class Authenticate extends Middleware
     }
 
     private function checkDevice($request){
-        $sesionId = $request->session()->getId();
+        $sessionId = $request->session()->getId();
         $user = $request->user();
-        $lastSesionId = $user->last_session;
-        if ($lastSesionId !== $lastSesionId) {
-            Auth::logout();
+        
+        if ($user) {
+            $lastSessionId = $user->last_session;
+            if ($lastSessionId !== $sessionId) {
+                Auth::logout();
+                return false;
+            }
+            return true;
+        } else {
+            // Handle the case when the user is not authenticated
             return false;
         }
-        return true;
-    }
+    }    
 }
