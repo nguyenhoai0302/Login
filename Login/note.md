@@ -12,18 +12,31 @@ php artisan ui bootstrap --auth
 ## Bước 3: Xây dựng Middleware
 
 <!-- --------------------- -->
-## Front-End: React -> gửi y/c xác thực "email, passwork" tới backend -> sẽ kiểm tra thông tin của y/c đó -> lúc này frontend phải gọi API của backend -> trả vể 1 token (JWT) -> Sau đó FE sẽ lưu vào cookie or local
+ Front-End: React -> gửi y/c xác thực "email, passwork" tới backend -> sẽ kiểm tra thông tin của y/c đó -> lúc này frontend phải gọi API của backend -> trả vể 1 token (JWT) -> Sau đó FE sẽ lưu vào cookie or local
 
-## Back-End: Laravel 
+ Back-End: Laravel 
 
-## API -> Authentication
+ API -> Authentication
 
-## Request get Data -> FE gửi token thông qua Header (Authorization: Bearer <token>)
-## Server -> ktra token có hợp lệ hay không?
-## -> Nếu có -> Decode Payload -> Truy vấn DB -> trả về DL
-## -> Nếu không -> 1 dòng thông báo
+ Request get Data -> FE gửi token thông qua Header (Authorization: Bearer <token>)
+ Server -> ktra token có hợp lệ hay không?
+ -> Nếu có -> Decode Payload -> Truy vấn DB -> trả về DL
+ -> Nếu không -> 1 dòng thông báo
 
 ```shell
 composer require tymon/jwt-jwtauth 
 
 ```
+
+<!-- Bài 2 -->
+## Bảo mật Token
+
+AccessToken => Nếu bị đánh cắp => Hacker khai thác dựa vào Token
+-> Giải pháp: Hạ thấp thời gian sống của AccessToken -> Gây phiền pức cho người dùng 
+
+-> Cần bổ sung: RefreshToken -> Thời gian sôngs lâu hơn -> Dùng để cấp lại AccessToken mới khi AccessToken cũ hết hạn (không quan tâm có hết hay không chỉ cần có y/c)
+
+-> Khi logout -> Thêm Token vào Blacklist -> Khi authorization -> Cần kiểm tra token có trong blacklist
++ Tính hợp lệ
++ Thời gian sống
++ Có trong blacklist hay không
