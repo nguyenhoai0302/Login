@@ -15,6 +15,7 @@ class AuthController extends Controller
         $this->middleware('auth:api', ['except' => ['login', 'refresh']]);
     }
 
+
     public function login()
     {
         $credentials = request(['email', 'password']);
@@ -54,8 +55,9 @@ class AuthController extends Controller
             if(!$user) {
                 return response()->json(['error' => "User not found"], 404);
             }
+            auth('api')->invalidate(); // Vô hiệu hóa token hiện tại
 
-            $token = auth('api')->login($user);
+            $token = auth('api')->login($user); // Tạo token mới 
             $refreshToken = $this->createRefreshToken();
             return $this->respondWithToken($token, $refreshToken);
 

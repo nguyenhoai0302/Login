@@ -40,3 +40,10 @@ AccessToken => Nếu bị đánh cắp => Hacker khai thác dựa vào Token
 + Tính hợp lệ
 + Thời gian sống
 + Có trong blacklist hay không
+
+
+<!-- Bài 3 -->
+## Truy vấn khi sd Refresh Token 
+- Refresh Token hết hạn => Clien xử lý người dùng -? Call API / logout
+- Cấp lại accessToken mới bằng Refresh Token -> accessToken cũ hoạt hoạt động được.
+Giải pháp: Khi cấp lại accessToken mới -> Thêm accessToken cũ vào Blacklist
