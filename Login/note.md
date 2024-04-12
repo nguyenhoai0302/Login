@@ -5,6 +5,10 @@
 ```shell
 composer require laravel/ui
 php artisan ui bootstrap --auth
+
+# Tài liệu tạo jwt auth
+https://jwt-auth.readthedocs.io/en/develop/laravel-installation/
+
 ```
 
 ## Bước 2: Phân tích Database
